@@ -4,7 +4,9 @@ module barrelshift(a , shift , rot , out , clk);
 	input [4:0] shift;
 	output [31:0] out;
 	input clk;
-
+	
+	reg[4:0] shift1;
+	reg ip1 , ip2 , ip3 , ip4 , ip5;
 	wire[31:0] w1 , w1t , w2 , w2t , w3 , w3t , w4 , w4t , w5 , w5t , w6 , at;
 	//level 1
 

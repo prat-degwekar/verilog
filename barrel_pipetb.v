@@ -1,15 +1,13 @@
-module pfa32_tb;
+module barrel_tb;
 
-	reg[31:0] a , b;
-	reg cin;
-
-	wire[31:0] s;
-	wire cout;
-
+	reg[31:0] a;
+	reg[4:0] shift;
+	reg rot;
+	wire[31:0] out;
 	reg clk;
 
 	//#18
-	pfa32 calc( a , b , cin , s , cout , clk );
+	barrelshift bs(a , shift , rot , out , clk);
 
 	initial begin
 		
@@ -26,15 +24,16 @@ module pfa32_tb;
 
 	initial begin
 		
+		clk = 1'b1;
 		a = 32'b00000000111111110000000011111111;
-		b = 32'b11111111000000001111111100000000;
-		cin = 0;
+		rot = 1'b0;
+		shift = 5'b00100;
 		
 		#2
 		
 		a = 32'b11110011111111110000000011111111;
-		b = 32'b00001100000000001111111100000000;
-		cin = 1;
+		rot = 1'b1;
+		shift = 5'b00100;
 		
 		/*#2
 		
@@ -83,8 +82,8 @@ module pfa32_tb;
 
 	initial begin
 
-		$monitor($time , " , a = %b , b = %b , cin = %b , s = %b , cout = %b" , a , b , cin , s , cout);
+		$monitor($time , " , a = %b , shift = %b , rotate = %b , output = %b" , a , shift , rot , out);
 
 	end
 
-endmodule // pfa32_tb
+endmodule // barrel_tb
